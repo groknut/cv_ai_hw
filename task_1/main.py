@@ -15,4 +15,4 @@ for image in images:
         cv2.contourArea(c) for c in contours if cv2.contourArea(c) > 300
     )
 
-    print("{image_name}: {area}".format(image_name=image.name, area=sum_area))
+    print("{}: {}".format(image.name, sum_area))
