@@ -11,8 +11,6 @@ for image in images:
 
     contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    sum_area = sum(
-        cv2.contourArea(c) for c in contours if cv2.contourArea(c) > 300
-    )
+    sum_area = sum(cv2.contourArea(c) for c in contours if cv2.contourArea(c) > 300)
 
     print("{}: {}".format(image.name, sum_area))
