@@ -42,7 +42,7 @@ def find_center(frame, mask, x, y, color):
     
 settings = {
     "ball": {
-        "color": None
+        "init_color": None
     },
     "path": []
 }
@@ -59,25 +59,29 @@ while capture.isOpened():
         break
     elif key == 'a':
         color = get_color(hsv)
+        settings["ball"]["init_color"] = color
         settings["ball"]["color"] = color
+        print(settings["ball"]["color"])
+    elif key == 'c':
+        settings["path"] = []
 
-    if settings["ball"]["color"]:
-        retr, (x, y, radius, mask) = get_ball(hsv, settings["ball"]["color"])
+    if settings["ball"]["init_color"]:
+        retr, (x, y, radius, mask) = get_ball(hsv, settings["ball"]["init_color"])
         if retr:
-            nx, ny = find_center(frame, mask, x, y, settings["ball"]["color"])
+            nx, ny = find_center(frame, mask, x, y, settings["ball"]["init_color"])
             settings["path"].append([nx, ny, max(1, int(radius / 10))])
             path = np.array(settings["path"], dtype=np.int32)
             if len(path) > 2:
                 for i in range(0, len(path)-1, 1):
-                    cv2.line(frame, path[i][:2], path[i+1][:2], color=settings["ball"]["color"], thickness=path[i][-1])
-                # cv2.polylines(frame, path, color=settings["ball"]["color"], isClosed=False, thickness=2)
+                    cv2.line(frame, path[i][:2], path[i+1][:2], color=settings["ball"]["init_color"], thickness=path[i][-1])
+
             cv2.imshow("Mask", mask)
             cv2.circle(frame, (x, y), radius, (4, 135, 80))
         else:
             path = np.array(settings["path"], dtype=np.int32)
             if len(path) > 2:
                 for i in range(0, len(path)-1, 1):
-                    cv2.line(frame, path[i][:2], path[i+1][:2], color=settings["ball"]["color"], thickness=path[i][-1])
+                    cv2.line(frame, path[i][:2], path[i+1][:2], color=settings["ball"]["init_color"], thickness=path[i][-1])
     
     cv2.imshow("Camera", frame)
 
