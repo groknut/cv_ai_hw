@@ -1,0 +1,11 @@
+[project]
+name = "cv_ai_hw"
+version = "0.1.0"
+description = "Homework CV + AI"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "opencv-python>=4.13.0.90",
+    "scikit-image>=0.26.0",
+]
