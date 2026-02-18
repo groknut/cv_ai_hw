@@ -1,8 +1,6 @@
 
 ## CV + AI
 
-**There are tasks:**
-1. [Проверка знаний](./task_1/)
-2. [Проверка знаний](./task_2/)
-3. [Обнаружение объектов](./task_3/)
-4. [Обнаружение объектов](./task_4/)
+1. [Проверка знаний](./intro-exam/readme.md)
+2. [Обнаружение объектов](./object-detection/readme.md)
+3. [k-Nearest Neighbour](./knn/readme.md)
