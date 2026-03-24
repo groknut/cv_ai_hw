@@ -28,7 +28,7 @@ class DatasetSplitter:
     ):
         self.zip_path = Path(zip_path)
         self.extract_dir = Path(extract_to)
-        self.data_dir = self.extract_dir / "Cyrillic"  # исходная структура
+        self.data_dir = self.extract_dir / "Cyrillic"
         self.train_dir = Path("train")
         self.test_dir = Path("test")
         self.train_ratio = train_ratio
@@ -152,56 +152,55 @@ class CyrrilicCNN(nn.Module):
         super().__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm2d(32)
-        self.selu1 = nn.LeakyReLU()
+        self.act1 = nn.LeakyReLU()
         self.pool1 = nn.MaxPool2d(2, 2)
 
         self.conv2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm2d(64)
-        self.selu2 = nn.LeakyReLU()
+        self.act2 = nn.LeakyReLU()
         self.pool2 = nn.MaxPool2d(2, 2)
 
         self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1)
         self.bn3 = nn.BatchNorm2d(128)
-        self.selu3 = nn.LeakyReLU()
+        self.act3 = nn.LeakyReLU()
         self.pool3 = nn.MaxPool2d(2, 2)
 
         self.conv4 = nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1)
         self.bn4 = nn.BatchNorm2d(128)
-        self.selu4 = nn.LeakyReLU()
+        self.act4 = nn.LeakyReLU()
         self.pool4 = nn.MaxPool2d(2, 2)
 
         self.flatten = nn.Flatten()
         self.fc1 = nn.Linear(128 * 4 * 4, 256)
-        self.selu5 = nn.LeakyReLU()
+        self.act5 = nn.LeakyReLU()
         self.dropout = nn.Dropout(0.5)
         self.fc2 = nn.Linear(256, 84)
         self.fc3 = nn.Linear(84, num_classes)
 
-
     def forward(self, x):
         x = self.conv1(x)
         x = self.bn1(x)
-        x = self.selu1(x)
+        x = self.act1(x)
         x = self.pool1(x)
 
         x = self.conv2(x)
         x = self.bn2(x)
-        x = self.selu2(x)
+        x = self.act2(x)
         x = self.pool2(x)
 
         x = self.conv3(x)
         x = self.bn3(x)
-        x = self.selu3(x)
+        x = self.act3(x)
         x = self.pool3(x)
 
         x = self.conv4(x)
         x = self.bn4(x)
-        x = self.selu4(x)
+        x = self.act4(x)
         x = self.pool4(x)
 
         x = self.flatten(x)
         x = self.fc1(x)
-        x = self.selu5(x)
+        x = self.act5(x)
         x = self.dropout(x)
         x = self.fc2(x)
         x = self.fc3(x)
@@ -212,7 +211,6 @@ class CyrrilicCNN(nn.Module):
 model = CyrrilicCNN(num_classes=34).to(device)
 total_params = sum(p.numel() for p in model.parameters())
 print(f"Total parameters: {total_params}")
-
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
