@@ -13,10 +13,6 @@ from torchvision import transforms
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 torch.manual_seed(42)
 
-transform = transforms.Compose(
-    [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
-)
-
 out_path = Path(__file__).parent / "out"
 out_path.mkdir(exist_ok=True)
 
