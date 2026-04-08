@@ -47,3 +47,5 @@ while True:
         if loss:
             print(f"Loss = {loss}")
         count_labeled = 0
+
+cv2.destroyAllWindows()
