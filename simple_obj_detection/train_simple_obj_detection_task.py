@@ -132,7 +132,7 @@ def giou_loss(pred, target):
     return (1 - giou).mean()
 
 
-def detection_loss(cls_pred, bbox_pred, cls_targets, bbox_targets, lambda_bbox=40.0):
+def detection_loss(cls_pred, bbox_pred, cls_targets, bbox_targets, lambda_bbox=10.0):
     loss_cls = F.cross_entropy(cls_pred, cls_targets)
     loss_bbox = F.smooth_l1_loss(bbox_pred, bbox_targets)
     loss_bbox += giou_loss(bbox_pred, bbox_targets)
