@@ -4,9 +4,10 @@ from pathlib import Path
 
 out_path = Path(__file__).parent / "out"
 
-model = YOLO(out_path / "bset.pt")
+model = YOLO(out_path / "best.pt")
 
 camera = cv2.VideoCapture(0)
+
 classes = {
     0: 'cube',
     1: 'neither',
@@ -19,9 +20,9 @@ while camera.isOpened():
     key = cv2.waitKey(10) & 0xFF
 
     res = model.predict(source=frame, conf=0.25, iou=0.1, imgsz=640)[0]
-    bxs = res.boxes.xyxy.cpu().numpy()
-    cls = res.boxes.cls.cpu().numpy()
-    scores = res.boxes.conf.cpu().numpy()
+    bxs = res.boxes.xyxy.numpy()
+    cls = res.boxes.cls.numpy()
+    scores = res.boxes.conf.numpy()
 
     for box, label, score in zip(bxs, cls, scores):
         x1, y1, x2, y2 = box.astype(int)

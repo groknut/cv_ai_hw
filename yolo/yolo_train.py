@@ -11,6 +11,15 @@ classes = {
 }
 
 root = Path(__file__).parent / "spheres_and_cubes"
+
+config = {
+    "path": str(root),
+    "train": str((root / "images" / "train")),
+    "val": str((root / "images" / "val")),
+    "nc": len(classes),
+    "names": classes
+}
+
 out_path = Path(__file__).parent / "out"
 out_path.mkdir(exist_ok=True)
 
