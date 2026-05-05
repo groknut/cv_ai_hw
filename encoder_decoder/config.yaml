@@ -1,0 +1,16 @@
+model_name: fixed_text_random_position
+
+textVariant:
+    positionFixed: false
+    textFixed: true
+    textLenFixed: true
+
+cloud:
+    fixed: [ABC, DEF, HIJ, KMN, OPQ]
+    dynamic:
+        - ABC
+        - DEF
+        - GHIJK
+        - KMNOPQ
+        - RSTU
+        - V
